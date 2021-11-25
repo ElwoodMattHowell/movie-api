@@ -1,5 +1,5 @@
 const http = require( 'http' ),
-      url = require( 'url'),
+      url = require( 'url' ),
       fs = require( 'fs' );
 
 http.createServer( ( request, response ) => {
@@ -11,7 +11,7 @@ http.createServer( ( request, response ) => {
     if ( err ) {
       console.log( err );
     } else {
-      console.log( 'Added to log' );
+      console.log( 'Added to log.' );
     }
   } );
 
@@ -32,6 +32,6 @@ http.createServer( ( request, response ) => {
 
   } );
 
-} ).listen( 8080 );
+} ).listen(8080);
 
 console.log( 'My first Node test server is running on Port 8080.' );
