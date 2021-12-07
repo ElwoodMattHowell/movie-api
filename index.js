@@ -63,8 +63,8 @@ app.get('/', ( req, res ) => {
   res.send( 'My all Time Top Ten List!' );
 } );
 
-app.get( 'documentation', ( req, res ) => {
-  res.sendFile( '/documentation.html', { root: __dirname } );
+app.get( '/documentation', ( req, res ) => {
+  res.sendFile( 'public/documentation.html', { root: __dirname } );
 } );
 
 app.get( '/movies', ( req, res ) => {
@@ -73,4 +73,9 @@ app.get( '/movies', ( req, res ) => {
 
 app.listen( 8080, () => {
   console.log( 'Your app is listening on port 8080' )
+} );
+
+app.use( ( err, req, res, next ) => {
+  console.error( err.stack );
+  res.status( 500 ).send( 'Something Broke!' )
 } );
