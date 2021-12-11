@@ -1,5 +1,6 @@
 const express = require( 'express' ),
       morgan = require( 'morgan' ),
+      bodyParser = require( 'body-parser' )
       app = express();
 
 let topTen = [
@@ -55,12 +56,13 @@ let topTen = [
   },
 ];
 
+app.use( bodyParser.json );
 app.use( morgan( 'common' ) );
-app.use( express.static( 'public' ) );
+// app.use( express.static( 'public' ) );
 
 //GET requests
 app.get('/', ( req, res ) => {
-  res.send( 'My all Time Top Ten List!' );
+  res.send( 'Welcome to myFlix!' );
 } );
 
 app.get( '/documentation', ( req, res ) => {
@@ -69,6 +71,46 @@ app.get( '/documentation', ( req, res ) => {
 
 app.get( '/movies', ( req, res ) => {
   res.json( topTen );
+} );
+
+app.get( '/movies/:title', ( req, res ) => {
+  res.send( 'Information about specific movie' );
+} );
+
+app.get( '/genres/:genre_type', ( req, res ) => {
+  res.send( 'Json of movies in genre' );
+} );
+
+app.get( '/directors', ( req, res ) => {
+  res.send( 'Json of directors on list' );
+} );
+
+app.get( '/directors/:director_name', ( req, res ) => {
+  res.send( 'Json of biography of specific director on list' );
+} );
+
+app.post( '/users', ( req, res ) => {
+  res.send( 'Json of new user info with a unique ID number' );
+} );
+
+app.put( '/users/:username', ( req, res ) => {
+  res.send( 'Json of updated user info' );
+} );
+
+app.get( '/users/:username/favorites', ( req, res ) => {
+  res.send( 'Json of users list of favorite movies' );
+} );
+
+app.post( '/users/:username/favorites', ( req, res ) => {
+  res.send( 'Movie succesfully added' );
+} );
+
+app.delete( '/users/:username/favorites', ( req, res ) => {
+  res.send( 'Movie succesfully deleted' );
+} );
+
+app.delete( '/users:username', ( req, res ) => {
+  res.send( 'User succesfully deleted' );
 } );
 
 app.listen( 8080, () => {
