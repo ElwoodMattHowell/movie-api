@@ -4,10 +4,99 @@
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width">
   	<title>Movie API Documentation</title>
+    <style type="text/css">
+      td {
+        padding: 0 15px;
+      }
+    </style>
   </head>
   <body>
     <h1>Movie API Documentation</h1>
-    <p>
-      This web application provides users with access to information about different movies, directors, and genres.  Users will be able to sign up, update their personal information, and create a list of favorite movies.
-    </p>
+    <table>
+      <tr>
+        <th colspan="3">URL endpoints and request methods</th>
+      </tr>
+      <tr>
+        <th>Method</th>
+        <th>URL</th>
+        <th>Request</th>
+        <th>Response</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies</td>
+        <td>Request a list of all movies</td>
+        <td>Returns a json of all movies</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies/title</td>
+        <td>Data about a single movie</td>
+        <td>aside json with description and details about a single movie</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/genres/genre type</td>
+        <td>A list of all movies in a specific genre</td>
+        <td>A json of all movies in a specific title</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/directors/</td>
+        <td>A list of all directors on list</td>
+        <td>A json of all directors on list</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/directors/director name</td>
+        <td>Biographical information of a specific director on list</td>
+        <td>A json of biographical information of a specific director</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/users/newuser</td>
+        <td>Allow new users to register</td>
+        <td>Json of new user info with a unique ID number</td>
+      </tr>
+      <tr>
+        <td>PUT</td>
+        <td>/users/username/update</td>
+        <td>Update personal information</td>
+        <td>Json of updated personal information</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/users/username/favorites</td>
+        <td>List of favorite movies with info</td>
+        <td>Json of favorite movies with info</td>
+      </tr>
+      <tr>
+        <td>PUT</td>
+        <td>/users/username/favorites</td>
+        <td>Add a movie to list of favorites</td>
+        <td>"Movie Title" succesfully added</td>
+      </tr>
+      <tr>
+        <td>Delete</td>
+        <td>/users/username/favorites</td>
+        <td>Remove a movie from users list of favorites</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>/users/deregister</td>
+        <td>Remove user</td>
+        <td>"Username" succesfully deleted</td>
+      </tr>
+    </table>
+  </body>
 </html>
+<!-- Return a list of ALL movies to the user
+Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+Return data about a genre (description) by name/title (e.g., “Thriller”)
+Return data about a director (bio, birth year, death year) by name
+Allow new users to register
+Allow users to update their user info (username)
+Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+Allow existing users to deregister (showing only a text that a user email has been removed—more on this later) -->
