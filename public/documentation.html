@@ -21,60 +21,83 @@
         <th>URL</th>
         <th>Request</th>
         <th>Response</th>
+        <th>Parameters</th>
       </tr>
       <tr>
         <td>GET</td>
         <td>/movies</td>
         <td>Request a list of all movies</td>
-        <td>Returns a json of all movies</td>
+        <td>Returns a JSON of all movies</td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/movies/title</td>
         <td>Data about a single movie</td>
-        <td>aside json with description and details about a single movie</td>
+        <td>A JSON with description and details about a single movie</td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/genres/genre type</td>
         <td>A list of all movies in a specific genre</td>
-        <td>A json of all movies in a specific title</td>
+        <td>A JSON of all movies in a specific title</td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/directors/</td>
         <td>A list of all directors on list</td>
-        <td>A json of all directors on list</td>
+        <td>A JSON of all directors on list</td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/directors/director name</td>
         <td>Biographical information of a specific director on list</td>
-        <td>A json of biographical information of a specific director</td>
+        <td>A JSON of biographical information of a specific director</td>
       </tr>
       <tr>
         <td>POST</td>
         <td>/users/newuser</td>
         <td>Allow new users to register</td>
-        <td>Json of new user info with a unique ID number</td>
+        <td>JSON of new user info with a unique ID number</td>
+        <td>
       </tr>
       <tr>
         <td>PUT</td>
         <td>/users/username/update</td>
         <td>Update personal information</td>
-        <td>Json of updated personal information</td>
+        <td>JSON of updated personal information</td>
+        <td>
+            <code>
+                {
+                name: "Billy-Bob Joe",
+                age: "100",
+                username:"BBJ123!",
+                email: "email@gmail.com",
+                password: "123456"
+                }
+            </code>
+        </td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/users/username/favorites</td>
         <td>List of favorite movies with info</td>
-        <td>Json of favorite movies with info</td>
+        <td>JSON of favorite movies with info</td>
       </tr>
       <tr>
         <td>POST</td>
         <td>/users/username/favorites</td>
         <td>Add a movie to list of favorites</td>
         <td>"Movie Title" succesfully added</td>
+        <td>
+            <code>
+                {
+                title: "Raiders of the Lost Ark",
+                Year: "1981"
+                Director: Steven Spielberg,
+                Genre: "Awesomeness"
+                }
+            </code>
+        </td>
       </tr>
       <tr>
         <td>Delete</td>
