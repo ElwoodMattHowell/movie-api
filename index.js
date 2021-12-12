@@ -1,68 +1,70 @@
-const express = require( 'express' ),
-      morgan = require( 'morgan' ),
-      bodyParser = require( 'body-parser' )
-      app = express();
+
+const express = require( 'express' );
+  // bodyParser = require( 'body-parser' ),
+  // uuid = require( 'uuid' );
+
+const app = express();
 
 let topTen = [
-  {
-    title: 'Raiders of the Lost Ark',
-    year: '1981',
-    director: 'Steven Spielberg'
-  },
-  {
-    title: 'Goonies',
-    year: '1985',
-    director: 'Richard Donner'
-  },
-  {
-    title: 'This is Spinal Tap',
-    year: '1984',
-    director: 'Rob Reiner'
-  },
-  {
-    title: 'The Big Lebowski',
-    year: '1998',
-    director: 'Joel and Ethan Cohen'
-  },
-  {
-    title: 'Delicatessen',
-    year: '1991',
-    director: 'Jean-Pierre Jeunet and Marc Caro'
-  },
-  {
-    title: 'Pan\'s Labrynth',
-    year: '2006',
-    director: 'Guillermo del Toro'
-  },
-  {
-    title: 'Back to the Future',
-    year: '1985',
-    director: 'Robert Zemeckis'
-  },
-  {
-    title: 'The Empire Strikes Back',
-    year: '1980',
-    director: 'George Lucas'
-  },
-  {
-    title: 'The Court Jester',
-    year: '1955',
-    director: 'Melvin Frank and Norman Panama'
-  },
-  {
-    title: 'The Dark Knight',
-    year: '2008',
-    director: 'Christopher Nolan'
-  },
+    {
+      title: 'Raiders of the Lost Ark',
+      year: '1981',
+      director: 'Steven Spielberg'
+    },
+    {
+      title: 'Goonies',
+      year: '1985',
+      director: 'Richard Donner'
+    },
+    {
+      title: 'This is Spinal Tap',
+      year: '1984',
+      director: 'Rob Reiner'
+    },
+    {
+      title: 'The Big Lebowski',
+      year: '1998',
+      director: 'Joel and Ethan Cohen'
+    },
+    {
+      title: 'Delicatessen',
+      year: '1991',
+      director: 'Jean-Pierre Jeunet and Marc Caro'
+    },
+    {
+      title: 'Pan\'s Labrynth',
+      year: '2006',
+      director: 'Guillermo del Toro'
+    },
+    {
+      title: 'Back to the Future',
+      year: '1985',
+      director: 'Robert Zemeckis'
+    },
+    {
+      title: 'The Empire Strikes Back',
+      year: '1980',
+      director: 'George Lucas'
+    },
+    {
+      title: 'The Court Jester',
+      year: '1955',
+      director: 'Melvin Frank and Norman Panama'
+    },
+    {
+      title: 'The Dark Knight',
+      year: '2008',
+      director: 'Christopher Nolan'
+    }
 ];
 
-app.use( bodyParser.json );
-app.use( morgan( 'common' ) );
+// app.use( bodyParser.json );
+// app.use( morgan( 'common' ) );
 // app.use( express.static( 'public' ) );
 
 //GET requests
 app.get('/', ( req, res ) => {
-  res.send( 'Welcome to myFlix!' );
+  res.status( 200 ).send( 'Welcome to myFlix!' );
 } );
 
 app.get( '/documentation', ( req, res ) => {
@@ -109,7 +111,7 @@ app.delete( '/users/:username/favorites', ( req, res ) => {
   res.send( 'Movie succesfully deleted' );
 } );
 
-app.delete( '/users:username', ( req, res ) => {
+app.delete( '/users/:username', ( req, res ) => {
   res.send( 'User succesfully deleted' );
 } );
 
