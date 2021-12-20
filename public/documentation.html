@@ -4,17 +4,14 @@
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width">
   	<title>Movie API Documentation</title>
-    <style type="text/css">
-      td {
-        padding: 0 15px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
   </head>
   <body>
-    <h1>Movie API Documentation</h1>
     <table>
       <tr>
-        <th colspan="3">URL endpoints and request methods</th>
+        <th colspan="5">Movie API Documentation</th>
+      <tr>
+        <th colspan="5">URL endpoints and request methods</th>
       </tr>
       <tr>
         <th>Method</th>
@@ -28,37 +25,42 @@
         <td>/movies</td>
         <td>Request a list of all movies</td>
         <td>Returns a JSON of all movies</td>
+        <td></td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/movies/title</td>
         <td>Data about a single movie</td>
         <td>A JSON with description and details about a single movie</td>
+        <td></td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/genres/genre type</td>
         <td>A list of all movies in a specific genre</td>
         <td>A JSON of all movies in a specific title</td>
+        <td></td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/directors/</td>
         <td>A list of all directors on list</td>
         <td>A JSON of all directors on list</td>
+        <td></td>
       </tr>
       <tr>
         <td>GET</td>
         <td>/directors/director name</td>
         <td>Biographical information of a specific director on list</td>
         <td>A JSON of biographical information of a specific director</td>
+        <td></td>
       </tr>
       <tr>
         <td>POST</td>
         <td>/users/newuser</td>
         <td>Allow new users to register</td>
         <td>JSON of new user info with a unique ID number</td>
-        <td>
+        <td></td>
       </tr>
       <tr>
         <td>PUT</td>
@@ -82,6 +84,7 @@
         <td>/users/username/favorites</td>
         <td>List of favorite movies with info</td>
         <td>JSON of favorite movies with info</td>
+        <td></td>
       </tr>
       <tr>
         <td>POST</td>
@@ -100,9 +103,10 @@
         </td>
       </tr>
       <tr>
-        <td>Delete</td>
+        <td>DELETE</td>
         <td>/users/username/favorites</td>
         <td>Remove a movie from users list of favorites</td>
+        <td>"Movie Title" succesfully deleted</td>
         <td></td>
       </tr>
       <tr>
@@ -110,6 +114,7 @@
         <td>/users/deregister</td>
         <td>Remove user</td>
         <td>"Username" succesfully deleted</td>
+        <td></td>
       </tr>
     </table>
   </body>
