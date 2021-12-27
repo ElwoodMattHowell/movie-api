@@ -19,6 +19,10 @@ app.use(bodyParser.urlencoded( {extended: true }));
 app.use( morgan( 'common' ) );
 app.use( express.static( 'public' ) );
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 // GET requests
 app.get('/', ( req, res ) => {
   res.status( 200 ).send( 'Welcome to myFlix!' );
