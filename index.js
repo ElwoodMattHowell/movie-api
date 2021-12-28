@@ -19,9 +19,9 @@ app.use(bodyParser.urlencoded( {extended: true }));
 app.use( morgan( 'common' ) );
 app.use( express.static( 'public' ) );
 
-let auth = require('./auth')(app);
+let auth = require('./auth.js')(app);
 const passport = require('passport');
-require('./passport');
+require('./passport.js');
 
 // GET requests
 app.get('/', ( req, res ) => {
@@ -32,7 +32,9 @@ app.get( '/documentation', ( req, res ) => {
   res.sendFile( 'public/documentation.html', { root: __dirname } );
 } );
 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Movies.find().then((movies) => {
     res.status(201).json(movies);
   }).catch((err) => {
