@@ -19,7 +19,24 @@ app.use(bodyParser.urlencoded( {extended: true }));
 app.use( morgan( 'common' ) );
 app.use( express.static( 'public' ) );
 
-let auth = require('./auth.js')(app);
+const cors = require('cors');
+// app.use(cors());
+
+let allowedOrigins = ['hhtp://127.0.0.1:8080', 'http://testsite.com'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      let message = 'The CORS policy for this applicaiton doesn\'t allow access from origin' + origin;
+      return callback( new Error( message ), false);
+    }
+    return callback(null, true);
+  }
+}));
+const { check, validationResult } = require('express-validator');
+
+auth = require('./auth.js')(app);
 const passport = require('passport');
 require('./passport.js');
 
@@ -79,14 +96,27 @@ app.get( '/directors/:Director', passport.authenticate('jwt', {
   }
 );
 
-app.post( '/users', ( req, res ) => {
+app.post( '/users', [
+  check('username', 'Username is required.').not().isEmpty(),
+  check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('password', 'Password is required.').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid.').isEmail()
+
+], ( req, res ) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne( { username: req.body.username } ).then((user) => {
     if (user) {
       return res.status(400).send(req.body.username + ' already exists');
     } else {
       Users.create ( {
         username: req.body.username,
-        password: req.body.password,
+        password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }).then ((user) => {
@@ -205,9 +235,13 @@ app.delete('/users/:username', passport.authenticate('jwt', {
   });
 });
 
-app.listen( 8080, () => {
-  console.log( 'Your app is listening on port 8080' )
-} );
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+  console.log('Listening onm Port ' + port);
+});
+// app.listen( 8080, () => {
+//   console.log( 'Your app is listening on port 8080' )
+// } );
 
 app.use( ( err, req, res, next ) => {
   console.error( err.stack );
