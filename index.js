@@ -109,7 +109,7 @@ app.post( '/users', [
     return res.status(422).json({errors: errors.array() });
   }
 
-  let hashedPassword = Users.hashPassword(req.body.Password);
+  let hashedPassword = Users.hashPassword(req.body.password);
   Users.findOne( { username: req.body.username } ).then((user) => {
     if (user) {
       return res.status(400).send(req.body.username + ' already exists');
@@ -237,7 +237,7 @@ app.delete('/users/:username', passport.authenticate('jwt', {
 
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
-  console.log('Listening onm Port ' + port);
+  console.log('Listening on Port ' + port);
 });
 // app.listen( 8080, () => {
 //   console.log( 'Your app is listening on port 8080' )
