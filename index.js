@@ -4,24 +4,24 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+// mongoose connection for local testing
 // mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true} );
+
 mongoose.connect( process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true} );
 
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const morgan = require('morgan');
-// const uuid = require( 'uuid' );
 
 const app = express();
 
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded( {extended: true }));
-//
+
 app.use( morgan( 'common' ) );
 app.use( express.static( 'public' ) );
 
 const cors = require('cors');
-// app.use(cors());
 
 let allowedOrigins = ['hhtp://127.0.0.1:8080', 'http://testsite.com'];
 
@@ -240,9 +240,6 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on Port ' + port);
 });
-// app.listen( 8080, () => {
-//   console.log( 'Your app is listening on port 8080' )
-// } );
 
 app.use( ( err, req, res, next ) => {
   console.error( err.stack );
