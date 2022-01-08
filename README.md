@@ -1,6 +1,10 @@
 # Movie_API ( REST API )
 REST API that allows users to create a profile and compile a list of their favorite movies.  Each movie will contain a biography of the director as well as information about the genre.  Users can update their profile as well as add and delete movies.
 
+[Index.html](https://matt-howell-myflix.herokuapp.com)
+
+[Documentation](https://matt-howell-myflix.herokuapp.com/documentation)
+
 ## Features
 * Return a list of ALL movies to the user
 * Return data (description, genre, director, image URL, whether it’s featured or not) about a
