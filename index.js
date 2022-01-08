@@ -41,15 +41,17 @@ auth = require('./auth.js')(app);
 const passport = require('passport');
 require('./passport.js');
 
-// GET requests
+// GET request.  Path is '/' response is Welcome message
 app.get('/', ( req, res ) => {
   res.status( 200 ).send( 'Welcome to myFlix!' );
 } );
 
+// GET request.  Path is '/documentation'.  Response is documentation.html page
 app.get( '/documentation', ( req, res ) => {
   res.sendFile( 'public/documentation.html', { root: __dirname } );
 } );
 
+//Get request.  Path is '/movies'.  Response is a list of all movies
 app.get('/movies', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -60,7 +62,7 @@ app.get('/movies', passport.authenticate('jwt', {
     res.status(500).send('Error: ' + err);
   });
 });
-
+//GET request.  Path is '/movies/'movie title'.  Response is an array of all movie info in json format.
 app.get( '/movies/:Title', passport.authenticate('jwt', {
   session: false
 }),(req, res) => {
@@ -73,6 +75,7 @@ app.get( '/movies/:Title', passport.authenticate('jwt', {
   }
 );
 
+//GET request.  Path is '/genres/'name of genre'.  Response is json containing genre name and description.
 app.get( '/genres/:Genre', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -85,6 +88,7 @@ app.get( '/genres/:Genre', passport.authenticate('jwt', {
   }
 );
 
+//GET request.  Path is /directors/'director name'.  Response is json containing director name, bio and birth year
 app.get( '/directors/:Director', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -97,6 +101,8 @@ app.get( '/directors/:Director', passport.authenticate('jwt', {
   }
 );
 
+//POST request.  Path is /users.  Response is json of user info and a bearer token.  Uses express-validator
+//to verify username is non-empty and alphanumeric, password is non-empty and email is in email format
 app.post( '/users', [
   check('username', 'Username is required.').not().isEmpty(),
   check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -110,6 +116,7 @@ app.post( '/users', [
     return res.status(422).json({errors: errors.array() });
   }
 
+//hashes password
   let hashedPassword = Users.hashPassword(req.body.password);
   Users.findOne( { username: req.body.username } ).then((user) => {
     if (user) {
@@ -133,6 +140,7 @@ app.post( '/users', [
   });
 });
 
+//GET request.  Path /users.  Returns array of jsons of user info.
 app.get('/users', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -144,6 +152,7 @@ app.get('/users', passport.authenticate('jwt', {
   });
 });
 
+//GET request.  Path /users/username.  Returns json of specific user info.
 app.get( '/users/:username', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -156,6 +165,8 @@ app.get( '/users/:username', passport.authenticate('jwt', {
   }
 );
 
+//PUT request.  Path /users.username.  Allows users to update user information.  Returns
+//json of updasted user info.
 app.put('/users/:username', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -178,6 +189,8 @@ app.put('/users/:username', passport.authenticate('jwt', {
   });
 });
 
+//Post request.  Path /users/'username'/movies/'MovieID'.  Allows users to add a movie to their list of
+//favorites.  Returns a json of user info.
 app.post('/users/:username/movies/:MovieId', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -199,6 +212,8 @@ app.post('/users/:username/movies/:MovieId', passport.authenticate('jwt', {
 });
 });
 
+//DELETE request.  Path /users/'username'/movies/'MovieID'.  Allows users to delete a movie to their list of
+//favorites.  Returns a json of user info.
 app.delete('/users/:username/movies/:MovieId', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -219,6 +234,7 @@ app.delete('/users/:username/movies/:MovieId', passport.authenticate('jwt', {
 });
 });
 
+//DELETE request.  Path /users/'username'.  Allows user to delete themselves from database.
 app.delete('/users/:username', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
@@ -236,11 +252,13 @@ app.delete('/users/:username', passport.authenticate('jwt', {
   });
 });
 
+//Listen for requests
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on Port ' + port);
 });
 
+//Error handling
 app.use( ( err, req, res, next ) => {
   console.error( err.stack );
   res.status( 500 ).send( 'Something Broke!' )

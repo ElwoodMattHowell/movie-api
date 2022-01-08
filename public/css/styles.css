@@ -20,3 +20,8 @@ td {
 h2 {
   color: #4287f5;
 }
+
+.json {
+  width: 250px;
+  text-align:left;
+}
