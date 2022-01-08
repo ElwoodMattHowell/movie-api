@@ -12,50 +12,23 @@
     </p>
     <table>
       <tr>
-        <th colspan="5">Movie API Documentation</th>
+        <th colspan="6">Movie API Documentation</th>
       <tr>
-        <th colspan="5">URL endpoints and request methods</th>
+        <th colspan="6">URL endpoints and request methods</th>
       </tr>
       <tr>
         <th>Method</th>
         <th>URL</th>
         <th>Request</th>
         <th>Response</th>
-        <th>Parameters</th>
-      </tr>
-      <tr>
-        <td>GET</td>
-        <td>/movies</td>
-        <td>Request a list of all movies</td>
-        <td>Returns a JSON of all movies</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>GET</td>
-        <td>/movies/title</td>
-        <td>Data about a single movie</td>
-        <td>A JSON with description and details about a single movie</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>GET</td>
-        <td>/genres/genre name</td>
-        <td>A list of all movies in a specific genre</td>
-        <td>A JSON of all movies in a specific title</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>GET</td>
-        <td>/directors/director name</td>
-        <td>Biographical information of a specific director on list</td>
-        <td>A JSON of biographical information of a specific director</td>
-        <td></td>
+        <th>Body</th>
+        <th>Authentication</th>
       </tr>
       <tr>
         <td>POST</td>
         <td>/users</td>
         <td>Allow new users to register</td>
-        <td>JSON of new user info with a unique ID number</td>
+        <td>JSON of new user info</td>
         <td class="json">
           <code>
               {<br>
@@ -67,6 +40,22 @@
               }
           </code>
         </td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/login</td>
+        <td>Login and generate bearer token</td>
+        <td>JSON of new user info and a bearer token to use to authenticate further requests</td>
+        <td class="json">
+          <code>
+              {<br>
+                username:"BBJ123!",<br>
+                password: "123456"<br>
+              }
+          </code>
+        </td>
+        <td>Username and Password needed</td>
       </tr>
       <tr>
         <td>PUT</td>
@@ -84,6 +73,47 @@
                 }
             </code>
         </td>
+        <td>Bearer Token</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies</td>
+        <td>Request a list of all movies</td>
+        <td>Returns an array of all JSONs of movie information</td>
+        <td></td>
+        <td>Bearer Token</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/users</td>
+        <td>Request a list of all users</td>
+        <td>Returns an array of all JSONs of user information</td>
+        <td></td>
+        <td>Bearer Token</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/movies/title</td>
+        <td>Data about a single movie</td>
+        <td>A JSON with description and details about a single movie</td>
+        <td></td>
+        <td>Bearer Token</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/genres/genre name</td>
+        <td>A list of all movies in a specific genre</td>
+        <td>A JSON of all movies in a specific title</td>
+        <td></td>
+        <td>Bearer Token</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/directors/director name</td>
+        <td>Biographical information of a specific director on list</td>
+        <td>A JSON of biographical information of a specific director</td>
+        <td></td>
+        <td>Bearer Token</td>
       </tr>
       <tr>
         <td>POST</td>
@@ -91,6 +121,7 @@
         <td>Add a movie to list of favorites</td>
         <td>JSON of user information</td>
         <td></td>
+        <td>Bearer Token</td>
       </tr>
       <tr>
         <td>DELETE</td>
@@ -98,6 +129,7 @@
         <td>Remove a movie from users list of favorites</td>
         <td>JSON of user information</td>
         <td></td>
+        <td>Bearer Token</td>
       </tr>
       <tr>
         <td>DELETE</td>
@@ -105,6 +137,7 @@
         <td>Remove user</td>
         <td>"Username" succesfully deleted</td>
         <td></td>
+        <td>Bearer Token</td>
       </tr>
     </table>
   </body>
