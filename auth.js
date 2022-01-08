@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken'),
   passport = require('passport');
 
 //local passport file
-equire('./passport.js');
+require('./passport.js');
 
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
