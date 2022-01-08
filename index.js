@@ -23,7 +23,7 @@ app.use( express.static( 'public' ) );
 
 const cors = require('cors');
 
-let allowedOrigins = ['hhtp://127.0.0.1:8080', 'http://testsite.com'];
+let allowedOrigins = ['hhtp://127.0.0.1:8080', '*'];
 
 app.use(cors({
   origin: (origin, callback) => {
