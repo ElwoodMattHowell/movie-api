@@ -54,16 +54,12 @@ app.get('/documentation', (req, res) => {
 });
 
 // Get request.  Path is '/movies'.  Response is a list of all movies
-app.get('/movies',
-  // passport.authenticate('jwt', {
-  //   session: false
-  // }), 
-  function (req, res) => {
-  Movies.find().then((movies) {
+app.get('/movies', function (req, res) {
+  Movies.find().then(function (movies) {
     res.status(201).json(movies);
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+  }).catch(function (error) {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
   });
 });
 //GET request.  Path is '/movies/'movie title'.  Response is an array of all movie info in json format.
