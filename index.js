@@ -59,7 +59,7 @@ app.get('/movies',
   //   session: false
   // }), 
   function (req, res) => {
-  Movies.find().then((movies) => {
+  Movies.find().then((movies) {
     res.status(201).json(movies);
   }).catch((err) => {
     console.error(err);
