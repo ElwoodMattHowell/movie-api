@@ -54,7 +54,9 @@ app.get('/documentation', (req, res) => {
 });
 
 // Get request.  Path is '/movies'.  Response is a list of all movies
-app.get('/movies', function (req, res) {
+app.get('/movies', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Movies.find().then(function (movies) {
     res.status(201).json(movies);
   }).catch(function (error) {
