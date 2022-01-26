@@ -10,8 +10,8 @@ const jwt = require('jsonwebtoken'),
 //local passport file
 require('./passport.js');
 
-const cors = require('cors');
-app.use(cors());
+// const cors = require('cors');
+// app.use(cors());
 
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
