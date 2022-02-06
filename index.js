@@ -172,10 +172,11 @@ app.get('/users/:username', passport.authenticate('jwt', {
 app.put('/users/:username', passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.password);
   Users.findOneAndUpdate({ username: req.params.username }, {
     $set: {
       username: req.body.username,
-      password: req.body.password,
+      password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
@@ -201,7 +202,6 @@ app.post('/users/:username/movies/:MovieId', passport.authenticate('jwt', {
   },
     {
       $push: { Favorite_Movies: req.params.MovieId }
-
     },
     { new: true },
     (err, updatedUser) => {
