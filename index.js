@@ -169,28 +169,37 @@ app.get('/users/:username', passport.authenticate('jwt', {
 
 //PUT request.  Path /users.username.  Allows users to update user information.  Returns
 //json of updasted user info.
-app.put('/users/:username', passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  let hashedPassword = Users.hashPassword(req.body.password);
-  Users.findOneAndUpdate({ username: req.params.username }, {
-    $set: {
-      username: req.body.username,
-      password: hashedPassword,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
+app.put('/users/:username', passport.authenticate('jwt', { session: false }),
+  [
+    check('username', 'Username is required.').not().isEmpty(),
+    check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    // check('password', 'Password is required.').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid.').isEmail()
+
+  ], (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
-  },
-    { new: true },
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
+    Users.findOneAndUpdate({ username: req.params.username }, {
+      $set: {
+        username: req.body.username,
+        password: req.body.password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
       }
-    });
-});
+    },
+      { new: true },
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        } else {
+          res.json(updatedUser);
+        }
+      });
+  });
 
 //Post request.  Path /users/'username'/movies/'MovieID'.  Allows users to add a movie to their list of
 //favorites.  Returns a json of user info.
