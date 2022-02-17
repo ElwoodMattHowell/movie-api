@@ -169,11 +169,10 @@ app.get('/users/:username', passport.authenticate('jwt', {
 
 //PUT request.  Path /users.username.  Allows users to update user information.  Returns
 //json of updasted user info.
-app.put('/users/:username', passport.authenticate('jwt', { session: false }),
+app.put('/users/:username/update', passport.authenticate('jwt', { session: false }),
   [
     check('username', 'Username is required.').not().isEmpty(),
     check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-    // check('password', 'Password is required.').not().isEmpty(),
     check('Email', 'Email does not appear to be valid.').isEmail()
 
   ], (req, res) => {
@@ -185,9 +184,34 @@ app.put('/users/:username', passport.authenticate('jwt', { session: false }),
     Users.findOneAndUpdate({ username: req.params.username }, {
       $set: {
         username: req.body.username,
-        password: req.body.password,
         Email: req.body.Email,
-        Birthday: req.body.Birthday
+      }
+    },
+      { new: true },
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        } else {
+          res.json(updatedUser);
+        }
+      });
+  });
+
+app.put('/users/:username/updatepassword', passport.authenticate('jwt', { session: false }),
+  [
+    check('password', 'Password is required.').not().isEmpty(),
+
+  ], (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.password);
+    Users.findOneAndUpdate({ username: req.params.username }, {
+      $set: {
+        password: hashedPassword,
       }
     },
       { new: true },
